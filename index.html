@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5T Services - Exclusive Donator Tiers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background effects */
+        .bg-effect {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-circle-1 {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .bg-circle-2 {
+            position: absolute;
+            bottom: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #c084fc, #f9a8d4, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        /* Grid */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .tiers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Tier Cards */
+        .tier-card {
+            position: relative;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .tier-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .tier-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .tier-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @media (min-width: 768px) {
+            .tier-card.popular {
+                transform: scale(1.05);
+            }
+        }
+
+        .tier-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .tier-card.vip {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .tier-card.vip-plus {
+            border-color: rgba(251, 191, 36, 0.5);
+        }
+
+        .tier-card.donator {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .tier-card:hover.vip {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        .tier-card:hover.vip-plus {
+            border-color: rgba(251, 191, 36, 0.7);
+        }
+
+        .tier-card:hover.donator {
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        /* Popular Badge */
+        .popular-badge {
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Icon */
+        .tier-icon {
+            display: inline-flex;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .tier-icon.vip {
+            background: linear-gradient(to bottom right, #a855f7, #ec4899);
+        }
+
+        .tier-icon.vip-plus {
+            background: linear-gradient(to bottom right, #fbbf24, #f59e0b);
+        }
+
+        .tier-icon.donator {
+            background: linear-gradient(to bottom right, #22d3ee, #3b82f6);
+        }
+
+        .tier-icon svg {
+            width: 2rem;
+            height: 2rem;
+            color: white;
+        }
+
+        /* Title */
+        .tier-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Features */
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+            min-height: 120px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .feature-icon.vip {
+            color: #c084fc;
+        }
+
+        .feature-icon.vip-plus {
+            color: #fbbf24;
+        }
+
+        .feature-icon.donator {
+            color: #22d3ee;
+        }
+
+        .feature-text {
+            color: #d1d5db;
+        }
+
+        /* Subscribe Button */
+        .subscribe-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscribe-btn.vip {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+        }
+
+        .subscribe-btn.vip-plus {
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+        }
+
+        .subscribe-btn.donator {
+            background: linear-gradient(to right, #22d3ee, #3b82f6);
+        }
+
+        .subscribe-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .subscribe-btn.vip:hover {
+            box-shadow: 0 20px 25px -5px rgba(168, 85, 247, 0.5);
+        }
+
+        .subscribe-btn.vip-plus:hover {
+            box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.5);
+        }
+
+        .subscribe-btn.donator:hover {
+            box-shadow: 0 20px 25px -5px rgba(34, 211, 238, 0.5);
+        }
+
+        /* Shine Effect */
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-12deg);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .tier-card:hover::before {
+            opacity: 1;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            from {
+                left: -100%;
+            }
+            to {
+                left: 200%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+            animation-delay: 0.8s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        footer p {
+            color: #9ca3af;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Gradient Overlay */
+        .gradient-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .gradient-overlay.vip {
+            background: linear-gradient(to bottom right, #a855f7, #ec4899);
+        }
+
+        .gradient-overlay.vip-plus {
+            background: linear-gradient(to bottom right, #fbbf24, #f59e0b);
+        }
+
+        .gradient-overlay.donator {
+            background: linear-gradient(to bottom right, #22d3ee, #3b82f6);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effect">
+        <div class="bg-circle-1"></div>
+        <div class="bg-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>5T Services</h1>
+            <p class="subtitle">Join our exclusive community and unlock premium benefits</p>
+        </header>
+
+        <div class="tiers-grid">
+            <!-- VIP Tier -->
+            <div class="tier-card vip">
+                <div class="gradient-overlay vip"></div>
+                <div class="tier-icon vip">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l7 18M19 3l-7 18M9 8h10M7 16h10" />
+                    </svg>
+                </div>
+                <h3 class="tier-title">VIP</h3>
+                <ul class="features">
+                    <li class="feature-item">
+                        <svg class="feature-icon vip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span class="feature-text">Access to exclusive chat</span>
+                    </li>
+                    <li class="feature-item">
+                        <svg class="feature-icon vip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="feature-text">Custom badge on Discord server (VIP)</span>
+                    </li>
+                </ul>
+                <a href="https://discord.gg/CRFPEbnmX6" target="_blank" rel="noopener noreferrer" class="subscribe-btn vip">
+                    Subscribe Now
+                </a>
+            </div>
+
+            <!-- VIP+ Tier -->
+            <div class="tier-card vip-plus popular">
+                <span class="popular-badge">POPULAR</span>
+                <div class="gradient-overlay vip-plus"></div>
+                <div class="tier-icon vip-plus">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                </div>
+                <h3 class="tier-title">VIP+</h3>
+                <ul class="features">
+                    <li class="feature-item">
+                        <svg class="feature-icon vip-plus" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span class="feature-text">Access to exclusive chat</span>
+                    </li>
+                    <li class="feature-item">
+                        <svg class="feature-icon vip-plus" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="feature-text">Custom badge on Discord server (VIP+)</span>
+                    </li>
+                </ul>
+                <a href="https://discord.gg/CRFPEbnmX6" target="_blank" rel="noopener noreferrer" class="subscribe-btn vip-plus">
+                    Subscribe Now
+                </a>
+            </div>
+
+            <!-- Donator Tier -->
+            <div class="tier-card donator">
+                <div class="gradient-overlay donator"></div>
+                <div class="tier-icon donator">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h3 class="tier-title">Donator</h3>
+                <ul class="features">
+                    <li class="feature-item">
+                        <svg class="feature-icon donator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span class="feature-text">Exclusive chat</span>
+                    </li>
+                    <li class="feature-item">
+                        <svg class="feature-icon donator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="feature-text">Custom badge on Discord server (Donator)</span>
+                    </li>
+                    <li class="feature-item">
+                        <svg class="feature-icon donator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <span class="feature-text">Fast support</span>
+                    </li>
+                </ul>
+                <a href="https://discord.gg/CRFPEbnmX6" target="_blank" rel="noopener noreferrer" class="subscribe-btn donator">
+                    Subscribe Now
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>Click "Subscribe Now" to join our Discord and get started</p>
+        </footer>
+    </div>
+</body>
+</html>
