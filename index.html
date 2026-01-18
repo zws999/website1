@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5T Services - Exclusive Donator Tiers</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>5T</text></svg>">
     <style>
         * {
             margin: 0;
@@ -387,6 +389,46 @@
         .gradient-overlay.donator {
             background: linear-gradient(to bottom right, #22d3ee, #3b82f6);
         }
+
+        /* Banner Section */
+        .banner-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .banner-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .banner-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 60px rgba(168, 85, 247, 0.4);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: block;
+            animation: fadeInDown 0.8s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -397,9 +439,21 @@
 
     <div class="container">
         <header>
+            <!-- Logo Image -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23000000' width='400' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black, sans-serif' font-size='200' font-weight='900' fill='%23ffffff'%3E5T%3C/text%3E%3C/svg%3E" alt="5T Services Logo" class="logo-img">
+            
             <h1>5T Services</h1>
             <p class="subtitle">Join our exclusive community and unlock premium benefits</p>
         </header>
+
+        <!-- Banner Section -->
+        <div class="banner-section">
+            <div class="banner-container">
+                <!-- Replace the src URL below with your Imgur banner link -->
+                <img src="https://i.imgur.com/YOUR_BANNER_ID.png" alt="5T Services Banner" class="banner-img" onerror="this.style.display='none'">
+                <!-- Note: Replace YOUR_BANNER_ID with the actual ID from your Imgur link -->
+            </div>
+        </div>
 
         <div class="tiers-grid">
             <!-- VIP Tier -->
